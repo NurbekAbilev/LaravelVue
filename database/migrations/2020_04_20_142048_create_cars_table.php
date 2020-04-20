@@ -13,6 +13,7 @@ class CreateCarsTable extends Migration
      */
     public function up()
     {
+        // Для каждого авто должны быть определены следующие поля:
         // 1.      Название модели
         // 2.      Марка (Список)
         // 3.      Год выпуска
@@ -33,7 +34,6 @@ class CreateCarsTable extends Migration
             $table->binary('image');
             $table->string('description');
         });
-        Для каждого авто должны быть определены следующие поля:
 
         
     }
