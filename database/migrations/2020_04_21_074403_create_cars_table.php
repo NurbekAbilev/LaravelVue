@@ -13,29 +13,16 @@ class CreateCarsTable extends Migration
      */
     public function up()
     {
-        // Для каждого авто должны быть определены следующие поля:
-        // 1.      Название модели
-        // 2.      Марка (Список)
-        // 3.      Год выпуска
-        // 4.      Объем двигателя (в куб. см)
-        // 5.      Номер двигателя
-        // 6.      Цвет (Список)
-        // 7.      Фото
-        // 8.      Описание
-
         Schema::create('cars', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+            $table->id();
             $table->string('name');
             $table->date('pub_year');
             $table->string('engine_volume');
             $table->string('engine_number');
-            $table->string('color');
+            //$table->string('color_id'); -> colors many to many table: car_colors
             $table->binary('image');
             $table->string('description');
         });
-
-        
     }
 
     /**
