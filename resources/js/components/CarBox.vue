@@ -16,9 +16,6 @@
 <script>
 export default {
     props: ['name','description'],
-    created() {
-        console.log('created',this.name);
-    }
 }
 </script>
 

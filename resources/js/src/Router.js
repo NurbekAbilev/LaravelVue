@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
 import CarListComponent from '../components/CarListComponent.vue'
+import Form from '../components/CarForm.vue'
 
 Vue.use(VueRouter)
 
@@ -15,10 +16,7 @@ export default new VueRouter({
     {
       path: '/create',
       name: 'create',
-      component: Vue.component('asdf', {
-        props: ['todo'],
-        template: '<li>This is component</li>'
-      })
+      component: Form
     }
   ]
 })
