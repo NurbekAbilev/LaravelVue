@@ -9,6 +9,9 @@ import router from './src/Router.js';
 import App from './components/App.vue';
 
 import BootstrapVue from 'bootstrap-vue'
+import vSelect from 'vue-select'
+
+Vue.component('v-select', vSelect)
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
