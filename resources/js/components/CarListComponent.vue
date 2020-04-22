@@ -26,7 +26,6 @@ export default {
         this.$vs.loading();
         let res = await axios.get('/api/cars');
         this.car_list = res.data;
-        window.v = this;
         this.$vs.loading.close();
       },
       async removeCar(id){

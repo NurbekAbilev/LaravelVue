@@ -57,14 +57,16 @@
                     </div>
 
                     <vs-divider />
-                    <vs-button color="primary" type="filled" v-on:click="submit">Создать</vs-button>
+                    <b-alert v-if="show_sucess" variant="success" show>Запись успешно сохранена!</b-alert>
+                    
+                    <vs-button color="primary" type="filled" v-on:click="submit">Редактировать</vs-button>
                 </b-form>
               </b-container>
-
-
           </div>
       </vs-card>
+      
   </vs-row>
+  
 </template>
 
 <script>
@@ -80,17 +82,27 @@ export default {
             description: "",
             colors: []
         };
+
         return {
+            'car' : null,
             'form': form_fields,
-            'color_options' : []
+            'color_options' : [],
+            'show_sucess' : false
         }
     },
     methods: {
         async loadColors() {
             this.$vs.loading();
             let res = await axios.get('/api/colors');
-            // console.log(res);
             this.color_options = res.data;
+            this.$vs.loading.close();
+        },
+        async loadCar() {
+            this.$vs.loading();
+            let id = this.$route.params.id;
+            let res = await axios.get(`/api/cars/${id}`);
+            let car = res.data;
+            this.form = car;
             this.$vs.loading.close();
         },
         submit() {
@@ -102,13 +114,16 @@ export default {
             
             axios({
                 method: 'post',
-                url: '/api/cars/create',
+                url: `/api/cars/edit/${this.$route.params.id}`,
                 data: form_data,
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }).then(function (response) {
+            }).then((response) => {
                 console.log(response);
+                this.loadColors();
+                this.loadCar();
+                this.show_sucess = true;
             })
         },
         onFileChange(e) {
@@ -119,7 +134,9 @@ export default {
 
     },
     mounted() {
+        window.editForm = this;
         this.loadColors();
+        this.loadCar();
     }
 }
 </script>

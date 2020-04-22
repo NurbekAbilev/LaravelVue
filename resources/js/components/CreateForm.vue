@@ -57,6 +57,9 @@
                     </div>
 
                     <vs-divider />
+
+                    <b-alert v-if="show_sucess" variant="success" show>Запись успешно сохранена!</b-alert>
+
                     <vs-button color="primary" type="filled" v-on:click="submit">Создать</vs-button>
                 </b-form>
               </b-container>
@@ -82,14 +85,14 @@ export default {
         };
         return {
             'form': form_fields,
-            'color_options' : []
+            'color_options' : [],
+            'show_sucess' : false
         }
     },
     methods: {
         async loadColors() {
             this.$vs.loading();
             let res = await axios.get('/api/colors');
-            // console.log(res);
             this.color_options = res.data;
             this.$vs.loading.close();
         },
@@ -107,8 +110,8 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }).then(function (response) {
-                console.log(response);
+            }).then( (response) => {
+                 this.show_sucess = true;
             })
         },
         onFileChange(e) {
@@ -120,6 +123,7 @@ export default {
     },
     mounted() {
         this.loadColors();
+        window.createForm = this;
     }
 }
 </script>
